@@ -1,9 +1,9 @@
 import mongoose, { Types } from "mongoose";
 import User from "./User";
-import {Cocktail} from "../types";
+import {CocktailData} from "../types";
 
 const Schema = mongoose.Schema;
-const CocktailSchema = new Schema<Cocktail>({
+const CocktailSchema = new Schema<CocktailData>({
 	name: {
 		type: String,
 		required: true,

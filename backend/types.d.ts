@@ -15,7 +15,7 @@ export interface Ingredient {
 	amount: string;
 }
 
-export interface Cocktail{
+export interface CocktailData{
 	author: Types.ObjectId;
 	name: string;
 	image: string;

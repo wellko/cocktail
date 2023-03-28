@@ -3,6 +3,7 @@ import express from "express";
 import cors = require("cors");
 import usersRouter from "./routers/users";
 import config from "./config";
+import cocktailRouter from "./routers/cocktails";
 
 const app = express();
 app.use(express.static("public"));
@@ -10,7 +11,7 @@ app.use(cors());
 const port = 8000;
 app.use(express.json());
 app.use("/users", usersRouter);
-
+app.use("/cocktails", cocktailRouter);
 const run = async () => {
 	mongoose.set("strictQuery", false);
 	await mongoose.connect(config.db);

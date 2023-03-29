@@ -1,10 +1,34 @@
 import React from 'react';
+import {useAppSelector} from "./app/hooks";
+import {selectUser} from "./features/users/UsersSlice";
+import AppToolbar from "./components/UI/AppToolBar/AppToolBar";
+import {Route, Routes} from "react-router-dom";
+import {CssBaseline, Typography} from "@mui/material";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Login from "./features/users/Login";
+import Register from "./features/users/Register";
 
 function App() {
+  const user = useAppSelector(selectUser);
   return (
-    <div className="App">
-
-    </div>
+      <>
+        <CssBaseline />
+        <AppToolbar />
+        <Routes>
+          <Route path="*" element={<Typography variant='h1'>Page not found!</Typography>}/>
+          <Route path="/" element={<p />} />
+          <Route
+              path="/cocktails/new"
+              element={
+                <ProtectedRoute isAllowed={Boolean(user)}>
+                  <p />
+                </ProtectedRoute>
+              }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </>
   );
 }
 

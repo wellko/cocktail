@@ -35,7 +35,7 @@ cocktailRouter.post("/",
 			const cocktail = await Cocktail.create({
 				name: req.body.name,
 				receipt: req.body.receipt,
-				image: req.file && req.file.filename,
+				image: req.file? req.file.filename : null,
 				author: user._id,
 				ingredients: req.body.ingredients,
 			});

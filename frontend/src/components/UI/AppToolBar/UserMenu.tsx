@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { logoutAction } from '../../../features/users/UsersThunks';
 import { apiUrl } from '../../../constants';
 import noImage from '../../../assets/noimage.jpg';
+import {getCocktails} from "../../../features/CocktailsPage/CocktailsPageThunks";
 
 interface Props {
 	user: User;
@@ -44,7 +45,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 			<Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				<MenuItem
 					onClick={() => {
-						navigate('/cocktails');
+						navigate('/cocktails/' + user._id);
 					}}
 				>
 					My cocktails
@@ -59,6 +60,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 				<MenuItem
 					onClick={async () => {
 						await dispatch(logoutAction());
+						await dispatch(getCocktails());
 						navigate('/');
 					}}
 				>

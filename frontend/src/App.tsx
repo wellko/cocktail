@@ -7,6 +7,8 @@ import {CssBaseline, Typography} from "@mui/material";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Login from "./features/users/Login";
 import Register from "./features/users/Register";
+import CocktailsPage from "./features/CocktailsPage/CocktailsPage";
+import CocktailForm from "./features/CocktailsPage/components/CocktailForm";
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -16,12 +18,12 @@ function App() {
         <AppToolbar />
         <Routes>
           <Route path="*" element={<Typography variant='h1'>Page not found!</Typography>}/>
-          <Route path="/" element={<p />} />
+          <Route path="/" element={<CocktailsPage />} />
           <Route
               path="/cocktails/new"
               element={
                 <ProtectedRoute isAllowed={Boolean(user)}>
-                  <p />
+                  <CocktailForm />
                 </ProtectedRoute>
               }
           />

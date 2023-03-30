@@ -73,6 +73,7 @@ const Login = () => {
 								sx={{ margin: 'auto' }}
 								label="E-mail"
 								name="email"
+								type='email'
 								autoComplete="current-username"
 								value={state.email}
 								onChange={inputChangeHandler}

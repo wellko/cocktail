@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { User } from '../../../types';
+import React, {useState} from 'react';
+import {User} from '../../../types';
 import {Avatar, Button, Grid, Menu, MenuItem} from '@mui/material';
-import { useAppDispatch } from '../../../app/hooks';
-import { useNavigate } from 'react-router-dom';
-import { logoutAction } from '../../../features/users/UsersThunks';
-import { apiUrl } from '../../../constants';
+import {useAppDispatch} from '../../../app/hooks';
+import {useNavigate} from 'react-router-dom';
+import {logoutAction} from '../../../features/users/UsersThunks';
+import {apiUrl} from '../../../constants';
 import noImage from '../../../assets/noimage.jpg';
 import {getCocktails} from "../../../features/CocktailsPage/CocktailsPageThunks";
 
@@ -12,7 +12,7 @@ interface Props {
 	user: User;
 }
 
-const UserMenu: React.FC<Props> = ({ user }) => {
+const UserMenu: React.FC<Props> = ({user}) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -34,10 +34,11 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 	return (
 		<>
 			<Grid item xs={2}>
-				<Avatar alt="avatar" src={user.avatar ? imageUrl : noImage} sx={{width:50, height:50, display: 'inline-block'}} />
+				<Avatar alt="avatar" src={user.avatar ? imageUrl : noImage}
+						sx={{width: 50, height: 50, display: 'inline-block'}}/>
 			</Grid>
 			<Grid item container xs={10}>
-				<Button sx={{ paddingBottom: '10px', marginY:"auto" }} onClick={handleClick} color="inherit">
+				<Button sx={{paddingBottom: '10px', marginY: "auto"}} onClick={handleClick} color="inherit">
 					Hello, {user.displayName}
 				</Button>
 			</Grid>

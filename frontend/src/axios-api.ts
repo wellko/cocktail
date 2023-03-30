@@ -1,7 +1,7 @@
-import axios, { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
-import { apiUrl } from './constants';
-import { Store } from '@reduxjs/toolkit';
-import { RootState } from './app/store';
+import axios, {AxiosHeaders, InternalAxiosRequestConfig} from 'axios';
+import {apiUrl} from './constants';
+import {Store} from '@reduxjs/toolkit';
+import {RootState} from './app/store';
 
 const axiosApi = axios.create({
 	baseURL: apiUrl,

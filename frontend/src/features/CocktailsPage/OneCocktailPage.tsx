@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectStateOfCocktails, selectStatusOfCocktails} from "./CocktailsPageSlice";
-import { getOneCocktail} from "./CocktailsPageThunks";
+import {getOneCocktail} from "./CocktailsPageThunks";
 import {useParams} from "react-router-dom";
 import {Box, CircularProgress, Container, Grid, List, ListItem, Typography} from "@mui/material";
 import {apiUrl} from "../../constants";
@@ -13,7 +13,7 @@ const OneCocktailPage = () => {
 	const cocktail = useAppSelector(selectStateOfCocktails)[0];
 	const loading = useAppSelector(selectStatusOfCocktails);
 	let ImgUrl;
-	if (cocktail){
+	if (cocktail) {
 		if (cocktail.image) {
 			ImgUrl = apiUrl + cocktail.image;
 		} else {
@@ -30,25 +30,25 @@ const OneCocktailPage = () => {
 	}, [callBack]);
 	return (
 		<Container fixed>
-			{loading ? <CircularProgress /> : cocktail &&
-			<Grid container>
-				<Grid item xs={4}>
-					<Box component='img' maxHeight={200} src={ImgUrl} alt='cocktail'/>
-				</Grid>
-				<Grid item xs={8}>
-					<Typography variant='h3'>{cocktail.name}</Typography>
-					<Typography variant='h4'>Ingredients:</Typography>
-					<List>
-						{cocktail.ingredients.map(el => <ListItem key={Math.random()}>
-							<Typography>{el.name} ... {el.amount}</Typography>
-						</ListItem>)}
-					</List>
-				</Grid>
-				<Grid item xs={12}>
-					<Typography variant='h4'>Receipt</Typography>
-					<Typography>{cocktail.receipt}</Typography>
-				</Grid>
-			</Grid>}
+			{loading ? <CircularProgress/> : cocktail &&
+				<Grid container>
+					<Grid item xs={4}>
+						<Box component='img' maxHeight={200} src={ImgUrl} alt='cocktail'/>
+					</Grid>
+					<Grid item xs={8}>
+						<Typography variant='h3'>{cocktail.name}</Typography>
+						<Typography variant='h4'>Ingredients:</Typography>
+						<List>
+							{cocktail.ingredients.map(el => <ListItem key={Math.random()}>
+								<Typography>{el.name} ... {el.amount}</Typography>
+							</ListItem>)}
+						</List>
+					</Grid>
+					<Grid item xs={12}>
+						<Typography variant='h4'>Receipt</Typography>
+						<Typography>{cocktail.receipt}</Typography>
+					</Grid>
+				</Grid>}
 		</Container>
 	);
 };

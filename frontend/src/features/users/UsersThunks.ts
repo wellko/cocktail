@@ -1,12 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, ValidationError } from '../../types';
-import { isAxiosError } from 'axios';
+import {createAsyncThunk} from '@reduxjs/toolkit';
+import {GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, ValidationError} from '../../types';
+import {isAxiosError} from 'axios';
 import axiosApi from '../../axios-api';
-import { logOut } from './UsersSlice';
+import {logOut} from './UsersSlice';
 
 export const register = createAsyncThunk<User, RegisterMutation, { rejectValue: ValidationError }>(
 	'users/register',
-	async (registerMutation, { rejectWithValue }) => {
+	async (registerMutation, {rejectWithValue}) => {
 		try {
 			const formData = new FormData();
 			const keys = Object.keys(registerMutation) as (keyof RegisterMutation)[];
@@ -29,7 +29,7 @@ export const register = createAsyncThunk<User, RegisterMutation, { rejectValue: 
 
 export const login = createAsyncThunk<User, LoginMutation, { rejectValue: GlobalError }>(
 	'users/login',
-	async (loginMutation, { rejectWithValue }) => {
+	async (loginMutation, {rejectWithValue}) => {
 		try {
 			const response = await axiosApi.post<RegisterResponse>('/users/sessions', loginMutation);
 			return response.data.user;
@@ -42,16 +42,16 @@ export const login = createAsyncThunk<User, LoginMutation, { rejectValue: Global
 	},
 );
 
-export const logoutAction = createAsyncThunk('users/logout', async (_, { dispatch }) => {
+export const logoutAction = createAsyncThunk('users/logout', async (_, {dispatch}) => {
 	await axiosApi.delete('/users/sessions');
 	dispatch(logOut());
 });
 
 export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
 	'users/googleLogin',
-	async (credential, { rejectWithValue }) => {
+	async (credential, {rejectWithValue}) => {
 		try {
-			const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
+			const response = await axiosApi.post<RegisterResponse>('/users/google', {credential});
 			return response.data.user;
 		} catch (e) {
 			if (isAxiosError(e) && e.response && e.response.status === 400) {

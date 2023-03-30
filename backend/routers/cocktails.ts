@@ -14,7 +14,7 @@ cocktailRouter.get("/", role, async (req, res) => {
 	try {
 		const user = (req as RequestWithUser).user;
 		const queryUser = req.query.user as string;
-		if (queryUser){
+		if (queryUser) {
 			const cocktails = await Cocktail.find({author: queryUser});
 			return res.send(cocktails);
 		}
@@ -23,7 +23,7 @@ cocktailRouter.get("/", role, async (req, res) => {
 			return res.send(cocktails);
 		}
 		const cocktails = await Cocktail.find({
-		isPublished: true
+			isPublished: true
 		});
 		return res.send(cocktails);
 	} catch {
@@ -32,12 +32,12 @@ cocktailRouter.get("/", role, async (req, res) => {
 });
 
 cocktailRouter.get("/:id", role, async (req, res) => {
-try {
-	const response = await Cocktail.find({_id: req.params.id});
-	return res.send(response);
-}	catch {
-	return res.sendStatus(500);
-}
+	try {
+		const response = await Cocktail.find({_id: req.params.id});
+		return res.send(response);
+	} catch {
+		return res.sendStatus(500);
+	}
 });
 
 cocktailRouter.post("/",
@@ -49,7 +49,7 @@ cocktailRouter.post("/",
 			const cocktail = await Cocktail.create({
 				name: req.body.name,
 				receipt: req.body.receipt,
-				image: req.file? req.file.filename : null,
+				image: req.file ? req.file.filename : null,
 				author: user._id,
 				ingredients: JSON.parse(req.body.ingredients),
 			});

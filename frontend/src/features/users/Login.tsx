@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { LoginMutation } from '../../types';
+import React, {useState} from 'react';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {LoginMutation} from '../../types';
 import {
 	Alert,
 	Avatar,
@@ -14,10 +14,10 @@ import {
 	Typography,
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { googleLogin, login } from './UsersThunks';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectLoginError, selectLoginLoading } from './UsersSlice';
-import { GoogleLogin } from '@react-oauth/google';
+import {googleLogin, login} from './UsersThunks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {selectLoginError, selectLoginLoading} from './UsersSlice';
+import {GoogleLogin} from '@react-oauth/google';
 
 const Login = () => {
 	const [state, setState] = useState<LoginMutation>({
@@ -29,8 +29,8 @@ const Login = () => {
 	const error = useAppSelector(selectLoginError);
 	const loading = useAppSelector(selectLoginLoading);
 	const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = event.target;
-		setState((prevState) => ({ ...prevState, [name]: value }));
+		const {name, value} = event.target;
+		setState((prevState) => ({...prevState, [name]: value}));
 	};
 
 	const submitFormHandler = async (event: React.FormEvent) => {
@@ -55,22 +55,22 @@ const Login = () => {
 					alignItems: 'center',
 				}}
 			>
-				<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-					<LockOpenIcon />
+				<Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+					<LockOpenIcon/>
 				</Avatar>
 				<Typography component="h1" variant="h5">
 					Sign In
 				</Typography>
 				{error && (
-					<Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+					<Alert severity="error" sx={{mt: 3, width: '100%'}}>
 						{error.error}
 					</Alert>
 				)}
-				<Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
+				<Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
 					<Grid container spacing={2}>
 						<Grid container item xs={12}>
 							<TextField
-								sx={{ margin: 'auto' }}
+								sx={{margin: 'auto'}}
 								label="E-mail"
 								name="email"
 								type='email'
@@ -81,7 +81,7 @@ const Login = () => {
 						</Grid>
 						<Grid container item xs={12}>
 							<TextField
-								sx={{ margin: 'auto' }}
+								sx={{margin: 'auto'}}
 								label="Password"
 								name="password"
 								type="password"
@@ -91,8 +91,8 @@ const Login = () => {
 							/>
 						</Grid>
 					</Grid>
-					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-						{loading ? <CircularProgress /> : 'Sign In'}
+					<Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+						{loading ? <CircularProgress/> : 'Sign In'}
 					</Button>
 					<Grid container justifyContent="flex-end">
 						<Grid item>
@@ -101,7 +101,7 @@ const Login = () => {
 							</Link>
 						</Grid>
 					</Grid>
-					<Grid container item sx={{ pt: 5 }} gap={2}>
+					<Grid container item sx={{pt: 5}} gap={2}>
 						<Grid item xs={12} m="auto">
 							<GoogleLogin
 								onSuccess={(credentialResponse) => {

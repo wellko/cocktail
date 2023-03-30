@@ -1,7 +1,7 @@
-import { GlobalError, User, ValidationError } from '../../types';
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { googleLogin, login, register } from './UsersThunks';
+import {GlobalError, User, ValidationError} from '../../types';
+import {createSlice} from '@reduxjs/toolkit';
+import {RootState} from '../../app/store';
+import {googleLogin, login, register} from './UsersThunks';
 
 interface UsersState {
 	user: User | null;
@@ -32,11 +32,11 @@ export const UsersSlice = createSlice({
 			state.registerLoading = true;
 			state.registerError = null;
 		});
-		builder.addCase(register.fulfilled, (state, { payload: user }) => {
+		builder.addCase(register.fulfilled, (state, {payload: user}) => {
 			state.registerLoading = false;
 			state.user = user;
 		});
-		builder.addCase(register.rejected, (state, { payload: error }) => {
+		builder.addCase(register.rejected, (state, {payload: error}) => {
 			state.registerLoading = false;
 			state.registerError = error || null;
 		});
@@ -44,22 +44,22 @@ export const UsersSlice = createSlice({
 			state.loginLoading = true;
 			state.loginError = null;
 		});
-		builder.addCase(login.fulfilled, (state, { payload: user }) => {
+		builder.addCase(login.fulfilled, (state, {payload: user}) => {
 			state.loginLoading = false;
 			state.user = user;
 		});
-		builder.addCase(login.rejected, (state, { payload: error }) => {
+		builder.addCase(login.rejected, (state, {payload: error}) => {
 			state.loginLoading = false;
 			state.loginError = error || null;
 		});
 		builder.addCase(googleLogin.pending, (state) => {
 			state.loginLoading = true;
 		});
-		builder.addCase(googleLogin.fulfilled, (state, { payload: user }) => {
+		builder.addCase(googleLogin.fulfilled, (state, {payload: user}) => {
 			state.loginLoading = false;
 			state.user = user;
 		});
-		builder.addCase(googleLogin.rejected, (state, { payload: error }) => {
+		builder.addCase(googleLogin.rejected, (state, {payload: error}) => {
 			state.loginLoading = false;
 			state.loginError = error || null;
 		});
@@ -73,4 +73,4 @@ export const selectRegisterLoading = (state: RootState) => state.users.registerL
 export const selectRegisterError = (state: RootState) => state.users.registerError;
 export const selectLoginLoading = (state: RootState) => state.users.loginLoading;
 export const selectLoginError = (state: RootState) => state.users.loginError;
-export const { logOut } = UsersSlice.actions;
+export const {logOut} = UsersSlice.actions;

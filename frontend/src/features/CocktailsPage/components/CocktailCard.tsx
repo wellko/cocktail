@@ -1,11 +1,11 @@
 import React from 'react';
-import { Cocktail} from '../../../types';
-import { Box, Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
-import { apiUrl } from '../../../constants';
-import { useNavigate } from 'react-router-dom';
-import { LoadingButton } from '@mui/lab';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { selectUser } from '../../users/UsersSlice';
+import {Cocktail} from '../../../types';
+import {Box, Card, CardActionArea, CardContent, CardMedia, Typography} from '@mui/material';
+import {apiUrl} from '../../../constants';
+import {useNavigate} from 'react-router-dom';
+import {LoadingButton} from '@mui/lab';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {selectUser} from '../../users/UsersSlice';
 import noImage from '../../../assets/noimage.jpg';
 import {selectStatusOfDeletingCocktails, selectStatusOfPostingCocktails} from "../CocktailsPageSlice";
 import {deleteCocktails, getCocktails, publicCocktails} from "../CocktailsPageThunks";
@@ -14,7 +14,7 @@ interface state {
 	cocktail: Cocktail;
 }
 
-const CocktailCard: React.FC<state> = ({ cocktail }) => {
+const CocktailCard: React.FC<state> = ({cocktail}) => {
 	const user = useAppSelector(selectUser);
 	const loading = useAppSelector(selectStatusOfPostingCocktails);
 	const deleting = useAppSelector(selectStatusOfDeletingCocktails);
@@ -42,8 +42,8 @@ const CocktailCard: React.FC<state> = ({ cocktail }) => {
 	};
 
 	return (
-		<Card sx={{ maxWidth: 345 }}>
-			<CardMedia component="img" height="200" image={ImgUrl} alt="cocktail" />
+		<Card sx={{maxWidth: 345}}>
+			<CardMedia component="img" height="200" image={ImgUrl} alt="cocktail"/>
 			<CardContent>
 				<CardActionArea onClick={onClickNavigate}>
 					<Typography gutterBottom variant="h5" component="div">
@@ -62,7 +62,7 @@ const CocktailCard: React.FC<state> = ({ cocktail }) => {
 						</LoadingButton>
 					</Box>
 				)}
-				{user?.role === 'admin'?  (
+				{user?.role === 'admin' ? (
 					<LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
 						Delete
 					</LoadingButton>

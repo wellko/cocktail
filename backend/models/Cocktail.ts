@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose, {Types} from "mongoose";
 import User from "./User";
 import {CocktailData} from "../types";
 

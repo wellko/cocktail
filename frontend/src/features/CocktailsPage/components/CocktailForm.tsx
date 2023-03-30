@@ -111,14 +111,14 @@ const CocktailForm = () => {
 								onChange={(e) => inputIngredientChangeHandler(e, index)}
 								required
 							/>
-						{index !== 0 && <IconButton
-							aria-label="close"
-							color="inherit"
-							size="small"
-							onClick={() => deleteInput(index)}
-						>
-							<CloseIcon fontSize='large'/>
-						</IconButton>}
+							{index !== 0 && <IconButton
+								aria-label="close"
+								color="inherit"
+								size="small"
+								onClick={() => deleteInput(index)}
+							>
+								<CloseIcon fontSize='small'/>
+							</IconButton>}
 						</Box>
 					)}
 				</Grid>

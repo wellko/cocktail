@@ -81,7 +81,7 @@ const run = async () => {
 				{name: "Aperol", amount: "15ml"}
 			],
 		},
-);
+	);
 	await db.close();
 };
 

@@ -1,8 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { UsersReducer } from '../features/users/UsersSlice';
-import { persistReducer, persistStore } from 'redux-persist';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import {UsersReducer} from '../features/users/UsersSlice';
+import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
+import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/es/constants';
 import {CocktailsPageReducer} from "../features/CocktailsPage/CocktailsPageSlice";
 
 const usersPersistConfig = {

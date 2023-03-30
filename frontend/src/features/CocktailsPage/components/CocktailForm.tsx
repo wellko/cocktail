@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Box, Button, Grid, TextField} from '@mui/material';
+import { Box, Button , Grid, TextField} from '@mui/material';
 import FileInput from '../../../components/UI/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ const CocktailForm = () => {
 			// error
 		}
 	};
+
 	const [state, setState] = useState<CocktailMutation>({
 		name: '',
 		receipt: '',

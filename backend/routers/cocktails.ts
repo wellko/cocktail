@@ -11,14 +11,19 @@ import {CocktailData} from "../types";
 const cocktailRouter = express.Router();
 
 cocktailRouter.get("/", role, async (req, res) => {
-	const user = (req as RequestWithUser).user;
 	try {
+		const user = (req as RequestWithUser).user;
+		const queryUser = req.query.user as string;
 		if (user && user.role === "admin") {
 			const cocktails = await Cocktail.find();
 			return res.send(cocktails);
 		}
+		if (queryUser){
+			const cocktails = await Cocktail.find({author: queryUser});
+			return res.send(cocktails);
+		}
 		const cocktails = await Cocktail.find({
-			$or: [{isPublished: true}, {author: user?._id}],
+		isPublished: true
 		});
 		return res.send(cocktails);
 	} catch {

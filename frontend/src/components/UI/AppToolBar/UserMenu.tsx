@@ -45,7 +45,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 			<Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
 				<MenuItem
 					onClick={() => {
-						navigate('/cocktails/' + user._id);
+						navigate('/cocktails/myCocktails');
 					}}
 				>
 					My cocktails

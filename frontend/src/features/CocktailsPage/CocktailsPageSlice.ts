@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import {createCocktails, deleteCocktails, getCocktails, publicCocktails} from "./CocktailsPageThunks";
+import {
+	createCocktails,
+	deleteCocktails,
+	getCocktails,
+	getCocktailsByAuthor,
+	publicCocktails
+} from "./CocktailsPageThunks";
 import {Cocktail} from "../../types";
 
 interface Initial {
@@ -8,6 +14,7 @@ interface Initial {
 	loading: boolean;
 	posting: boolean;
 	deleting: boolean;
+	alert: boolean;
 }
 
 const initialState: Initial = {
@@ -15,12 +22,17 @@ const initialState: Initial = {
 	loading: false,
 	posting: false,
 	deleting: false,
+	alert: false,
 };
 
 export const CocktailsPageSlice = createSlice({
 	name: 'Cocktails',
 	initialState,
-	reducers: {},
+	reducers: {
+		closeAlert: state => {
+			state.alert = false;
+		}
+	},
 	extraReducers: (builder) => {
 		builder.addCase(getCocktails.pending, (state) => {
 			state.loading = true;
@@ -33,11 +45,23 @@ export const CocktailsPageSlice = createSlice({
 			state.loading = false;
 		});
 
+		builder.addCase(getCocktailsByAuthor.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(getCocktailsByAuthor.fulfilled, (state, action) => {
+			state.cocktails = action.payload;
+			state.loading = false;
+		});
+		builder.addCase(getCocktailsByAuthor.rejected, (state) => {
+			state.loading = false;
+		});
+
 		builder.addCase(createCocktails.pending, (state) => {
 			state.posting = true;
 		});
 		builder.addCase(createCocktails.fulfilled, (state) => {
 			state.posting = false;
+			state.alert = true;
 		});
 		builder.addCase(createCocktails.rejected, (state) => {
 			state.posting = false;
@@ -70,3 +94,5 @@ export const selectStateOfCocktails = (state: RootState) => state.cocktails.cock
 export const selectStatusOfCocktails = (state: RootState) => state.cocktails.loading;
 export const selectStatusOfPostingCocktails = (state: RootState) => state.cocktails.posting;
 export const selectStatusOfDeletingCocktails = (state: RootState) => state.cocktails.deleting;
+export const selectStatusOfAlert = (state: RootState) => state.cocktails.alert;
+export const {closeAlert} = CocktailsPageSlice.actions;

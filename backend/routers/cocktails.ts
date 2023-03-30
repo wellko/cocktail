@@ -14,12 +14,12 @@ cocktailRouter.get("/", role, async (req, res) => {
 	try {
 		const user = (req as RequestWithUser).user;
 		const queryUser = req.query.user as string;
-		if (user && user.role === "admin") {
-			const cocktails = await Cocktail.find();
-			return res.send(cocktails);
-		}
 		if (queryUser){
 			const cocktails = await Cocktail.find({author: queryUser});
+			return res.send(cocktails);
+		}
+		if (user && user.role === "admin") {
+			const cocktails = await Cocktail.find();
 			return res.send(cocktails);
 		}
 		const cocktails = await Cocktail.find({
@@ -51,7 +51,7 @@ cocktailRouter.post("/",
 				receipt: req.body.receipt,
 				image: req.file? req.file.filename : null,
 				author: user._id,
-				ingredients: req.body.ingredients,
+				ingredients: JSON.parse(req.body.ingredients),
 			});
 			return res.send(cocktail);
 		} catch (error) {

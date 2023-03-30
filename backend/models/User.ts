@@ -21,15 +21,15 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
 		validate: {
 			validator: async function (
 				this: HydratedDocument<IUser>,
-				username: string
+				email: string
 			): Promise<boolean> {
-				if (!this.isModified("username")) return true;
+				if (!this.isModified("email")) return true;
 				const user: HydratedDocument<IUser> | null = await User.findOne({
-					username,
+					email,
 				});
 				return !user;
 			},
-			message: "This user is already registered",
+			message: "This email is already registered",
 		},
 	},
 	password: {

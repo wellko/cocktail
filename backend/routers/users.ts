@@ -37,7 +37,7 @@ usersRouter.post("/", imagesUpload.single("avatar"), async (req, res, next) => {
 usersRouter.post("/sessions", async (req, res) => {
 	const user = await User.findOne({ email: req.body.email });
 	if (!user) {
-		return res.status(400).send({ error: "Username not found" });
+		return res.status(400).send({ error: "User with this email not found" });
 	}
 	const isMatch = await user.checkPassword(req.body.password);
 	if (!isMatch) {
@@ -45,7 +45,7 @@ usersRouter.post("/sessions", async (req, res) => {
 	}
 	user.generateToken();
 	await user.save();
-	return res.send({ message: "Username and password correct!", user });
+	return res.send({ message: "email and password correct!", user });
 });
 
 usersRouter.post("/google", async (req, res, next) => {
@@ -89,7 +89,7 @@ usersRouter.delete("/sessions", auth, async (req, res) => {
 	const userParams = (req as RequestWithUser).user;
 	const user = await User.findOne({ email: userParams.email });
 	if (!user) {
-		return res.status(400).send({ error: "Username not found" });
+		return res.status(400).send({ error: "User not found" });
 	}
 	user.generateToken();
 	await user.save();

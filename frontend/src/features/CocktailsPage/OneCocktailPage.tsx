@@ -6,7 +6,6 @@ import {useParams} from "react-router-dom";
 import {Box, CircularProgress, Container, Grid, List, ListItem, Typography} from "@mui/material";
 import {apiUrl} from "../../constants";
 import noImage from "../../assets/noimage.jpg";
-import {Ingredient} from "../../types";
 
 const OneCocktailPage = () => {
 	const {id} = useParams();
@@ -14,9 +13,7 @@ const OneCocktailPage = () => {
 	const cocktail = useAppSelector(selectStateOfCocktails)[0];
 	const loading = useAppSelector(selectStatusOfCocktails);
 	let ImgUrl;
-	let cocktailIngr:Ingredient[] = [];
 	if (cocktail){
-		cocktailIngr = JSON.parse(cocktail.ingredients) as Ingredient[];
 		if (cocktail.image) {
 			ImgUrl = apiUrl + cocktail.image;
 		} else {
@@ -36,13 +33,13 @@ const OneCocktailPage = () => {
 			{loading ? <CircularProgress /> : cocktail &&
 			<Grid container>
 				<Grid item xs={4}>
-					<Box component='img' src={ImgUrl} alt='cocktail'/>
+					<Box component='img' maxHeight={200} src={ImgUrl} alt='cocktail'/>
 				</Grid>
 				<Grid item xs={8}>
 					<Typography variant='h3'>{cocktail.name}</Typography>
 					<Typography variant='h4'>Ingredients:</Typography>
 					<List>
-						{cocktailIngr.map(el => <ListItem key={Math.random()}>
+						{cocktail.ingredients.map(el => <ListItem key={Math.random()}>
 							<Typography>{el.name} ... {el.amount}</Typography>
 						</ListItem>)}
 					</List>

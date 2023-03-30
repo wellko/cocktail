@@ -31,6 +31,15 @@ cocktailRouter.get("/", role, async (req, res) => {
 	}
 });
 
+cocktailRouter.get("/:id", role, async (req, res) => {
+try {
+	const response = await Cocktail.find({_id: req.params.id});
+	return res.send(response);
+}	catch {
+	return res.sendStatus(500);
+}
+});
+
 cocktailRouter.post("/",
 	auth,
 	imagesUpload.single("image"),

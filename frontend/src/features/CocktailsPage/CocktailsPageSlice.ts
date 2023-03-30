@@ -4,7 +4,7 @@ import {
 	createCocktails,
 	deleteCocktails,
 	getCocktails,
-	getCocktailsByAuthor,
+	getCocktailsByAuthor, getOneCocktail,
 	publicCocktails
 } from "./CocktailsPageThunks";
 import {Cocktail} from "../../types";
@@ -42,6 +42,17 @@ export const CocktailsPageSlice = createSlice({
 			state.loading = false;
 		});
 		builder.addCase(getCocktails.rejected, (state) => {
+			state.loading = false;
+		});
+
+		builder.addCase(getOneCocktail.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(getOneCocktail.fulfilled, (state, action) => {
+			state.cocktails = action.payload;
+			state.loading = false;
+		});
+		builder.addCase(getOneCocktail.rejected, (state) => {
 			state.loading = false;
 		});
 

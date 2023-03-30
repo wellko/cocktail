@@ -12,60 +12,62 @@ import CocktailForm from "./features/CocktailsPage/components/CocktailForm";
 import CocktailsPageFromUser from "./features/CocktailsPage/CocktailsPageFromUser";
 import CloseIcon from "@mui/icons-material/Close";
 import {closeAlert, selectStatusOfAlert} from "./features/CocktailsPage/CocktailsPageSlice";
+import OneCocktailPage from "./features/CocktailsPage/OneCocktailPage";
 
 function App() {
-  const user = useAppSelector(selectUser);
-  const alert = useAppSelector(selectStatusOfAlert);
-  const dispatch = useAppDispatch();
-  return (
-      <>
-        <CssBaseline />
-        <AppToolbar />
-          <Box sx={{ width: '100%' }}>
-              <Collapse in={alert}>
-                  <Alert
-                      action={
-                          <IconButton
-                              aria-label="close"
-                              color="inherit"
-                              size="small"
-                              onClick={() => {
-                                  dispatch(closeAlert());
-                              }}
-                          >
-                              <CloseIcon fontSize="inherit" />
-                          </IconButton>
-                      }
-                      sx={{ mb: 2 }}
-                  >
-                      Your cocktail added to wait list for Public
-                  </Alert>
-              </Collapse>
-          </Box>
-        <Routes>
-          <Route path="*" element={<Typography variant='h1'>Page not found!</Typography>}/>
-          <Route path="/" element={<CocktailsPage />} />
-          <Route
-              path="/cocktails/new"
-              element={
-                <ProtectedRoute isAllowed={Boolean(user)}>
-                  <CocktailForm />
-                </ProtectedRoute>
-              }
-          />
-            <Route
-                path="/cocktails/myCocktails"
-                element={
-                    <ProtectedRoute isAllowed={Boolean(user)}>
-                        <CocktailsPageFromUser />
-                    </ProtectedRoute>
-                }
-            />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </>
-  );
+	const user = useAppSelector(selectUser);
+	const alert = useAppSelector(selectStatusOfAlert);
+	const dispatch = useAppDispatch();
+	return (
+		<>
+			<CssBaseline/>
+			<AppToolbar/>
+			<Box sx={{width: '100%'}}>
+				<Collapse in={alert}>
+					<Alert
+						action={
+							<IconButton
+								aria-label="close"
+								color="inherit"
+								size="small"
+								onClick={() => {
+									dispatch(closeAlert());
+								}}
+							>
+								<CloseIcon fontSize="inherit"/>
+							</IconButton>
+						}
+						sx={{mb: 2}}
+					>
+						Your cocktail added to wait list for Public
+					</Alert>
+				</Collapse>
+			</Box>
+			<Routes>
+				<Route path="*" element={<Typography variant='h1'>Page not found!</Typography>}/>
+				<Route path="/" element={<CocktailsPage/>}/>
+				<Route path="/cocktails/:id" element={<OneCocktailPage/>}/>
+				<Route
+					path="/cocktails/new"
+					element={
+						<ProtectedRoute isAllowed={Boolean(user)}>
+							<CocktailForm/>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/cocktails/myCocktails"
+					element={
+						<ProtectedRoute isAllowed={Boolean(user)}>
+							<CocktailsPageFromUser/>
+						</ProtectedRoute>
+					}
+				/>
+				<Route path="/login" element={<Login/>}/>
+				<Route path="/register" element={<Register/>}/>
+			</Routes>
+		</>
+	);
 }
 
 export default App;

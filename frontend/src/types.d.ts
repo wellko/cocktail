@@ -52,7 +52,7 @@ export interface Cocktail{
 	image: string;
 	receipt: string;
 	isPublished: boolean;
-	ingredients: Ingredient[];
+	ingredients: string;
 }
 
 export interface CocktailMutation{

@@ -20,6 +20,15 @@ export const getCocktailsByAuthor = createAsyncThunk<Cocktail[], string>('Cockta
 	}
 });
 
+export const getOneCocktail = createAsyncThunk<Cocktail[], string>('Cocktails/getOne', async (arg) => {
+	try {
+		const response = await axiosApi.get('/cocktails/' + arg);
+		return response.data;
+	} catch (e) {
+		return e;
+	}
+});
+
 export const createCocktails = createAsyncThunk<Cocktail, CocktailMutation>(
 	'Cocktails/new',
 	async (arg) => {

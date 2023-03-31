@@ -7,6 +7,8 @@ import config from "../config";
 import {randomUUID} from "crypto";
 import {imagesUpload} from "../multer";
 import {promises as fs} from "fs";
+import axios from "axios";
+import path from "path";
 
 const usersRouter = express.Router();
 
@@ -68,18 +70,22 @@ usersRouter.post("/google", async (req, res, next) => {
 				.send({error: "Not enough user data to continue"});
 		}
 		let user = await User.findOne({googleID: googleId});
-		if (!user) {
+		if (!user && avatar) {
+			const response = await axios.get(avatar, { responseType: "arraybuffer" });
+			const fileName ='images/' + randomUUID() + '.jpg';
+			const Path = path.join(config.publicPath, fileName);
+			await fs.writeFile(Path, response.data);
 			user = new User({
 				email: email,
 				password: randomUUID(),
 				googleID: googleId,
 				displayName,
-				avatar,
+				avatar: fileName,
 			});
+			user.generateToken();
+			await user.save();
+			return res.send({message: "Login with Google successful!", user});
 		}
-		user.generateToken();
-		await user.save();
-		return res.send({message: "Login with Google successful!", user});
 	} catch (e) {
 		return next(e);
 	}
